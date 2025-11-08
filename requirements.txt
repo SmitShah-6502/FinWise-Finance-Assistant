@@ -1,0 +1,42 @@
+streamlit==1.39.0
+pandas
+numpy
+yfinance
+yahooquery
+forex-python
+requests
+beautifulsoup4
+jinja2
+prophet
+
+# LangChain stack for PDF loading + Groq (no heavy torch/transformers)
+langchain==0.2.17
+langchain-community==0.2.17
+langchain-groq==0.1.4
+groq
+pypdf
+openpyxl
+python-dotenv
+groq
+langchain==0.2.17
+langchain-community==0.2.17
+langchain-groq==0.1.4
+python-dotenv
+# If you actually use FAISS index files:
+faiss-cpu
+
+deep-translator
+gTTS
+speechrecognition
+python-dotenv
+streamlit-chat
+openai
+streamlit-aggrid
+streamlit-extras
+scikit-learn
+
+# ML and Embeddings
+sentence-transformers
+torch
+faiss-cpu
+transformers
