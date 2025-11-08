@@ -39,4 +39,9 @@ scikit-learn
 sentence-transformers
 torch
 faiss-cpu
+peft
+transformers
+accelerate
+
+
 transformers
