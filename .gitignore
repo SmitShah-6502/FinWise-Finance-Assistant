@@ -1,0 +1,31 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+env.bak/
+venv.bak/
+
+# Environment Variables
+.env
+
+# Large files & local caches
+*.pkl
+*.model
+*.h5
+*.pt
+*.bin
+*.onnx
+
+# Specific heavy ML dependencies models cache
+/models/
+/finetuned-flan-t5-lora/
+
+# Vercel
+.vercel
+
+# Logs
+*.log

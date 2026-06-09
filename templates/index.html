@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Finance Pro | Smart Finance Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <h2>FinWise</h2>
+                <p>AI Finance Assistant</p>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-tab="stock"><i class="fa-solid fa-arrow-trend-up"></i> Stock Forecast</button>
+                <button class="nav-btn" data-tab="portfolio"><i class="fa-solid fa-briefcase"></i> Portfolio Analysis</button>
+                <button class="nav-btn" data-tab="chatbot"><i class="fa-solid fa-comments"></i> Finance Chatbot</button>
+                <button class="nav-btn" data-tab="diversification"><i class="fa-solid fa-diagram-project"></i> Diversification</button>
+                <button class="nav-btn" data-tab="budget"><i class="fa-solid fa-wallet"></i> Budget Recommender</button>
+            </nav>
+            <div class="sidebar-footer">
+                Powered by xAI
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Stock Analysis Tab -->
+            <section id="stock" class="tab-content active glass-panel">
+                <div class="header">
+                    <h1>💹 Stock Analysis & Forecasting</h1>
+                    <p>AI-driven insights and price predictions for your favorite stocks.</p>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="stock-ticker" placeholder="Enter stock ticker (e.g., AAPL, TSLA, RELIANCE.NS)">
+                    <label>Days to Predict:</label>
+                    <input type="number" id="stock-days" value="5" min="1" max="30">
+                    <button id="btn-stock-analyze" class="primary-btn"><i class="fa-solid fa-magnifying-glass"></i> Analyze</button>
+                </div>
+                
+                <div id="stock-loading" class="loading hidden"><i class="fa-solid fa-circle-notch fa-spin"></i> Fetching data and generating insights...</div>
+
+                <div id="stock-results" class="results-container hidden">
+                    <div class="chart-container">
+                        <canvas id="stockChart"></canvas>
+                    </div>
+                    
+                    <div class="analysis-grid">
+                        <div class="analysis-card ai-summary">
+                            <h3>🧠 AI-Based Stock Analysis</h3>
+                            <div id="stock-ai-analysis"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio Analysis Tab -->
+            <section id="portfolio" class="tab-content glass-panel">
+                <div class="header">
+                    <h1>📌 Personalized Portfolio Analysis</h1>
+                    <p>Evaluate your stock holdings against current market conditions.</p>
+                </div>
+                
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Stock Ticker</label>
+                        <input type="text" id="port-ticker" placeholder="e.g., RELIANCE.NS">
+                    </div>
+                    <div class="input-group">
+                        <label>Number of Shares</label>
+                        <input type="number" id="port-shares" value="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Global Recession Rate (%)</label>
+                        <input type="number" id="port-recession" value="2.5" step="0.1">
+                    </div>
+                </div>
+                <button id="btn-port-analyze" class="primary-btn mt-4">Generate Report</button>
+                
+                <div id="port-results" class="results-container mt-4 hidden">
+                    <div class="analysis-card success-card">
+                        <h3>🧾 Portfolio Analysis Report</h3>
+                        <p>Currently not implemented in Flask backend.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chatbot Tab -->
+            <section id="chatbot" class="tab-content glass-panel">
+                <div class="header">
+                    <h1>💬 AI Finance Chatbot</h1>
+                    <p>Your AI-powered financial advisor at your fingertips!</p>
+                </div>
+                
+                <div class="chat-interface">
+                    <div class="chat-controls">
+                        <select id="chat-lang" class="select-dropdown">
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="gu">Gujarati</option>
+                        </select>
+                        <button id="btn-chat-voice" class="secondary-btn"><i class="fa-solid fa-microphone"></i> Voice Input</button>
+                    </div>
+                    
+                    <textarea id="chat-input" placeholder="📝 Ask a finance-related question (e.g., What is a mutual fund?)" rows="4"></textarea>
+                    <button id="btn-chat-ask" class="primary-btn mt-4"><i class="fa-solid fa-lightbulb"></i> Get Answer</button>
+                    
+                    <div id="chat-loading" class="loading hidden"><i class="fa-solid fa-circle-notch fa-spin"></i> Thinking...</div>
+                    
+                    <div id="chat-response" class="response-box hidden">
+                        <h3>**Answer:**</h3>
+                        <div id="chat-answer-text"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diversification Tab -->
+            <section id="diversification" class="tab-content glass-panel">
+                <div class="header">
+                    <h1>🔍 Portfolio Diversification</h1>
+                    <p>Analyze how well your investments are distributed across sectors.</p>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="div-tickers" placeholder="Enter tickers separated by commas (e.g., UPL, INFY, RELIANCE)">
+                    <button id="btn-div-analyze" class="primary-btn">Predict Diversification</button>
+                </div>
+                
+                <div id="div-results" class="results-container mt-4 hidden">
+                    <div class="classification-badge" id="div-badge"></div>
+                    <div class="analysis-card mt-4">
+                        <h3>📋 AI Summary</h3>
+                        <div id="div-summary-text"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Budget Tab -->
+            <section id="budget" class="tab-content glass-panel">
+                <div class="header">
+                    <h1>💰 AI Budget Recommender</h1>
+                    <p>Smart budget allocation based on your income and goals.</p>
+                </div>
+                
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Monthly Income</label>
+                        <input type="number" id="budget-income" value="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Monthly Debt Repayment</label>
+                        <input type="number" id="budget-debt" value="0" min="0">
+                    </div>
+                </div>
+                
+                <div class="input-group mt-4">
+                    <label>Financial Goals (Hold Ctrl/Cmd to select multiple)</label>
+                    <select id="budget-goals" multiple class="select-dropdown multi" style="height: 120px;">
+                        <option value="Retirement Savings">Retirement Savings</option>
+                        <option value="Emergency Fund">Emergency Fund</option>
+                        <option value="Debt Repayment">Debt Repayment</option>
+                        <option value="Vacation Fund">Vacation Fund</option>
+                        <option value="Home Purchase">Home Purchase</option>
+                        <option value="Investment Growth">Investment Growth</option>
+                    </select>
+                </div>
+                
+                <button id="btn-budget-gen" class="primary-btn mt-4"><i class="fa-solid fa-chart-pie"></i> Generate Budget</button>
+                
+                <div id="budget-results" class="results-container mt-4 hidden" style="display: flex; gap: 20px;">
+                    <div class="analysis-card" style="flex: 1;">
+                        <h3>📋 Budget Allocation</h3>
+                        <ul id="budget-pct-list" class="budget-list"></ul>
+                    </div>
+                    <div class="analysis-card" style="flex: 1;">
+                        <h3>💵 Monthly Amounts</h3>
+                        <ul id="budget-amt-list" class="budget-list"></ul>
+                    </div>
+                </div>
+                <div class="chart-container mt-4" id="budget-chart-container" style="max-width: 500px; margin: 0 auto; display:none;">
+                    <canvas id="budgetChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
